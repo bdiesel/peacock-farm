@@ -87,6 +87,8 @@
   .btn-sv:hover { background: var(--cedar-light); }
   .btn-permit { background: #1A5276; color: white; }
   .btn-permit:hover { background: #2471A3; }
+  .btn-card { background: #5D4037; color: white; }
+  .btn-card:hover { background: #795548; }
 
   /* MAP MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; }
@@ -970,6 +972,7 @@ function buildCard(prop) {
     <div class="card-actions">
       <a href="${svUrl}" target="_blank" class="btn btn-sv">📸 Street View</a>
       <button class="btn btn-maps" onclick='openModal(${JSON.stringify(prop.a)}, ${JSON.stringify(prop.p)})'>📍 Map</button>
+      <a href="property_cards/${prop.p}.pdf" target="_blank" class="btn btn-card">📋 Property Card</a>
       <a href="${permitUrl()}" target="_blank" class="btn btn-permit">Permits</a>
     </div>
   </div>`;
