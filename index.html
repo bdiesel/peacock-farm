@@ -111,6 +111,54 @@
   .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--muted); }
   .legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
 
+  /* ABOUT SECTION */
+  .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1rem; }
+  .about-card { background: white; border-radius: 8px; box-shadow: var(--shadow); padding: 1.25rem 1.4rem; border: 1px solid var(--border); }
+  .about-card--wide { grid-column: 1 / -1; }
+  .about-card--highlight { grid-column: 1 / -1; background: var(--slate); color: white; border-color: var(--slate); }
+  .about-card--highlight p { color: #CBD5E0; }
+  .about-card h3 { font-size: 1rem; color: var(--cedar); margin-bottom: 0.75rem; font-weight: 700; }
+  .about-card--highlight h3 { color: var(--cedar-light); }
+  .about-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.65rem; line-height: 1.6; }
+  .about-card ul { margin-left: 1.2rem; margin-bottom: 0.65rem; }
+  .about-card li { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.25rem; line-height: 1.5; }
+  .about-card em { font-style: italic; }
+  .about-card strong { color: var(--slate); font-weight: 600; }
+  .about-card--highlight strong { color: white; }
+
+  .architect-row { display: flex; flex-direction: column; gap: 0.75rem; }
+  .architect { border-left: 3px solid var(--cedar); padding-left: 0.75rem; }
+  .architect-name { font-weight: 700; font-size: 0.9rem; color: var(--slate); }
+  .architect-detail { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.5; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+  .tl-item { display: grid; grid-template-columns: 5.5rem 10rem 1fr; gap: 0.5rem 0.75rem; align-items: start; font-size: 0.8rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
+  .tl-year { font-weight: 700; color: var(--cedar); white-space: nowrap; }
+  .tl-name { font-weight: 600; color: var(--slate); }
+  .tl-desc { color: var(--muted); line-height: 1.4; }
+
+  .lextopia-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.85rem; }
+  .lextopia-badge { background: var(--cedar); color: white; font-weight: 800; font-size: 1.1rem; padding: 0.4rem 0.8rem; border-radius: 6px; white-space: nowrap; line-height: 1.2; }
+  .lextopia-events { background: rgba(255,255,255,0.08); border-radius: 6px; padding: 0.75rem 1rem; margin: 0.75rem 0; display: flex; flex-direction: column; gap: 0.45rem; }
+  .le-item { display: flex; gap: 0.75rem; font-size: 0.8rem; align-items: baseline; }
+  .le-date { color: var(--cedar-light); font-weight: 600; white-space: nowrap; min-width: 10rem; }
+  .le-item span:last-child { color: #CBD5E0; }
+
+  .nr-links { display: flex; gap: 0.6rem; margin-top: 0.85rem; flex-wrap: wrap; }
+
+  .mcm-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.8rem; }
+  .mcm-table th { text-align: left; padding: 0.4rem 0.6rem; background: var(--tag-bg); color: var(--cedar); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .mcm-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+  .mcm-table tr:last-child td { border-bottom: none; }
+  .mcm-table strong { color: var(--slate); }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .about-card--wide, .about-card--highlight { grid-column: 1; }
+    .tl-item { grid-template-columns: 1fr; gap: 0.15rem; }
+    .tl-name { font-size: 0.85rem; }
+  }
+
   /* FOOTER */
   footer { background: var(--slate); color: #90A4AE; text-align: center; padding: 1.5rem; font-size: 0.8rem; }
   footer a { color: var(--cedar-light); }
@@ -141,11 +189,127 @@
   <a href="#area-am">Area AM — Rumford Rd</a>
   <a href="#area-an">Area AN — Upper Turning Mill</a>
   <a href="#area-ba">Area BA — Pleasant Brook</a>
+  <a href="#about">About</a>
   <a href="#documents">Documents</a>
   <a href="#notes">Notes</a>
 </nav>
 
 <main>
+
+<!-- ABOUT -->
+<section id="about" class="area-section">
+
+  <div class="area-header">
+    <h2>About Peacock Farm &amp; Lexington's Mid-Century Modern Heritage</h2>
+    <div class="area-desc">History, architecture, and community — the story behind the houses</div>
+  </div>
+
+  <div class="about-grid">
+
+    <div class="about-card about-card--wide">
+      <h3>The Farm That Became a Neighborhood</h3>
+      <p>In 1951, two young MIT-trained architects — <strong>Danforth Compton</strong> and <strong>Walter Pierce</strong> — purchased 42 acres of former dairy farmland on the edge of Lexington, Massachusetts. The land had been used as a dairy farm since the 1800s, and in the early twentieth century its owners kept peacocks on the property — giving the eventual neighborhood its name.</p>
+      <p>The original c.&thinsp;1830 farmhouse and barn still stand at the entrance to the neighborhood today. They are the only pre-MCM structures in the historic district.</p>
+      <p>Compton and Pierce broke ground on a demonstration model at <strong>4 Peacock Farm Road</strong> in late 1951. By 1958 they had built more than 50 houses on the site. The development was, by the time of its completion, described as <em>"the third important planned modernist development to be begun in Lexington"</em> — following Six Moon Hill (1948) and Five Fields (1951).</p>
+    </div>
+
+    <div class="about-card">
+      <h3>The Design</h3>
+      <p>Compton and Pierce set out to democratize good architecture — to make contemporary design available at a price ordinary families could afford. Their solution was a single, endlessly adaptable floor plan:</p>
+      <ul>
+        <li>Split-level with a mid-level entry</li>
+        <li>Low-pitched asymmetrical gable roof</li>
+        <li>Vertical <strong>cedar siding</strong></li>
+        <li>Broad horizontal <strong>bands of windows</strong></li>
+        <li>Open floor plan — living, dining, kitchen flowing together</li>
+        <li>3 bedrooms, 1.5 bathrooms, fireplace</li>
+        <li>Approximately 1,800 sq ft</li>
+      </ul>
+      <p>The design was offered in several sizes and configurations. In 1957 it won the <strong>AIA (American Institute of Architects) First Award</strong> for residential design — one of the most prestigious honors in American architecture.</p>
+    </div>
+
+    <div class="about-card">
+      <h3>The Architects</h3>
+      <div class="architect-row">
+        <div class="architect">
+          <div class="architect-name">Danforth Compton</div>
+          <div class="architect-detail">MIT School of Architecture · Co-designer of the Peacock Farm split-level · Partner with Walter Pierce from the early 1950s through the development of all six Lexington neighborhoods</div>
+        </div>
+        <div class="architect">
+          <div class="architect-name">Walter Pierce</div>
+          <div class="architect-detail">MIT School of Architecture · Co-designer · Went on to design schools and research buildings throughout New England · Died March 2013, age 93</div>
+        </div>
+        <div class="architect">
+          <div class="architect-name">Henry B. Hoover</div>
+          <div class="architect-detail">Harvard M.Arch. '26 · Designed custom homes within Peacock Farm, known for extraordinary glass work — one 1957 Hoover house famously has <em>"trees growing up in the middle of the living room."</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <h3>The Bauhaus Connection</h3>
+      <p>The Peacock Farm houses did not emerge in isolation. They were part of a broader wave of modernism that washed over Lexington starting in the late 1940s — a direct consequence of <strong>Walter Gropius</strong> arriving at Harvard's Graduate School of Design in 1937.</p>
+      <p>Gropius, founder of the German Bauhaus school, brought with him a generation of European modernist ideas: open plans, honest materials, integration of indoors and outdoors, and a rejection of historical ornament. His students fanned out across Greater Boston, and Lexington — with its open land and progressive community — became their proving ground.</p>
+      <p>In 1945 Gropius co-founded <strong>The Architects Collaborative (TAC)</strong>, which designed Six Moon Hill (1948) and Five Fields (1951) — the two neighborhoods that preceded Peacock Farm. Compton and Pierce, trained at MIT under the same modernist ethos, continued the tradition at Peacock Farm.</p>
+    </div>
+
+    <div class="about-card">
+      <h3>The Six Neighborhoods</h3>
+      <p>Compton and Pierce's design proved so popular that it spread across Lexington over two decades. The same split-level plan — with minor variations — was built in five additional neighborhoods beyond the original Peacock Farm Historic District:</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-year">1952–58</span><span class="tl-name">Peacock Farm (Area S)</span><span class="tl-desc">Original 42-acre development · 48 split-levels + 7 A-Series + custom homes · National Register 2012</span></div>
+        <div class="tl-item"><span class="tl-year">1957–61</span><span class="tl-name">Upper Turning Mill Road (Area AN)</span><span class="tl-desc">North Lexington · ~47 houses · Turning Mill Rd, Dewey Rd, Gould Rd, Grimes Rd</span></div>
+        <div class="tl-item"><span class="tl-year">1959</span><span class="tl-name">Rumford Road (Area AM)</span><span class="tl-desc">11 houses on one curvilinear street off Woburn St</span></div>
+        <div class="tl-item"><span class="tl-year">1960–66</span><span class="tl-name">Shaker Glen / Glen at Countryside (Area AK)</span><span class="tl-desc">26 houses · Fessenden Way, Marshall Rd, Rogers Rd, Rolfe Rd</span></div>
+        <div class="tl-item"><span class="tl-year">1962–65</span><span class="tl-name">The Grove (Area AL)</span><span class="tl-desc">~40 houses · North Lexington near Rt 95/128 · Angier Rd, Diamond Rd, N. Emerson Rd, White Ter</span></div>
+        <div class="tl-item"><span class="tl-year">1967–79</span><span class="tl-name">Pleasant Brook (Area BA)</span><span class="tl-desc">34 houses · Mason St, White Pine Ln · Recorded by LHC 2020 · Includes 2 Deck Houses</span></div>
+      </div>
+    </div>
+
+    <div class="about-card about-card--highlight">
+      <div class="lextopia-header">
+        <div class="lextopia-badge">2015</div>
+        <h3>Lextopia: Lexington's Second Revolution</h3>
+      </div>
+      <p>In 2015 the <strong>Lexington Historical Society</strong> mounted <em>Lextopia: Lexington's Launch of Mid-Century Modern</em> — a major exhibition celebrating Lexington's extraordinary concentration of modernist architecture. The organizers called it <strong>"Lexington's second revolution"</strong>: if the first was in 1775, the second was the quiet revolution in American domestic life that unfolded here between 1948 and 1979.</p>
+      <div class="lextopia-events">
+        <div class="le-item"><span class="le-date">May 31, 2015</span><span>Opening house tour — four private homes designed by Henry B. Hoover</span></div>
+        <div class="le-item"><span class="le-date">Jun 20 – Sep 20, 2015</span><span>Main gallery exhibition at <strong>The Lexington Depot, 13 Depot Square</strong></span></div>
+        <div class="le-item"><span class="le-date">Oct 4, 2015</span><span>Final house tour and marketplace of MCM furniture, housewares, and design objects</span></div>
+      </div>
+      <p>Curator <strong>Elaine Doran</strong> (Lexington Historical Society) and co-curator <strong>Rick Beyer</strong> assembled artifacts typical of MCM homes — cocktail glasses, ceramic dishes, coffee tables and chairs — alongside archival photographs and architectural drawings. The exhibition captured how Peacock Farm residents <em>"didn't just buy a house — you bought a way of life"</em>: a community built around shared stewardship, neighborly connections, and a conscious embrace of modern living.</p>
+      <p>A follow-on program, <em>At Home with Mid-Century Modern</em>, was presented by the Lexington Historical Society in May 2021.</p>
+    </div>
+
+    <div class="about-card">
+      <h3>National Register of Historic Places</h3>
+      <p>The original Peacock Farm neighborhood (Area S) was listed on the <strong>National Register of Historic Places in 2012</strong>, recognizing its significance as a cohesive planned modernist community. The nomination was prepared by the <strong>Massachusetts Historical Commission (MHC)</strong>.</p>
+      <p>The district encompasses <strong>63 contributing buildings</strong>: 48 standard Compton &amp; Pierce split-levels, 7 A-Series single-story variants, 4 custom designs, 1 Techbuilt, and the original 1830 farmhouse and barn.</p>
+      <p>MHC survey numbers: <strong>LEX.S</strong> and <strong>LEX. 548–550, 2033–2095</strong>. The remaining five neighborhoods (Areas AK–BA) have been surveyed by the <strong>Lexington Historical Commission</strong> but are not part of the National Register district.</p>
+      <div class="nr-links">
+        <a href="Peacock-Farm-Historic-District-Part-1.pdf" target="_blank" class="btn btn-maps" style="font-size:0.75rem">📄 NPS Nomination Part 1</a>
+        <a href="Peacock-Farm-Historic-District-Part-2.pdf" target="_blank" class="btn btn-maps" style="font-size:0.75rem">📄 NPS Nomination Part 2</a>
+      </div>
+    </div>
+
+    <div class="about-card">
+      <h3>Lexington's Broader MCM Legacy</h3>
+      <p>Peacock Farm was part of a remarkable cluster of mid-century modern neighborhoods that made Lexington one of the densest concentrations of post-war modernist housing in America:</p>
+      <table class="mcm-table">
+        <thead><tr><th>Neighborhood</th><th>Year</th><th>Architects</th></tr></thead>
+        <tbody>
+          <tr><td>Six Moon Hill</td><td>1948</td><td>The Architects Collaborative (TAC) / Walter Gropius</td></tr>
+          <tr><td>Five Fields</td><td>1951</td><td>TAC — utopian community experiment</td></tr>
+          <tr><td><strong>Peacock Farm</strong></td><td><strong>1952</strong></td><td><strong>Compton &amp; Pierce (MIT)</strong></td></tr>
+          <tr><td>Middle Ridge</td><td>1955</td><td>Carl Koch</td></tr>
+          <tr><td>Shaker Glen / Rumford / Grove / Pleasant Brook</td><td>1957–79</td><td>Compton &amp; Pierce (MIT)</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--muted)">More than 200 mid-century modern houses survive in Lexington today. The <strong>Lexington Historical Commission</strong> has been systematically surveying and documenting these neighborhoods since the 2000s.</p>
+    </div>
+
+  </div>
+</section>
 
 <!-- NOTES / LEGEND -->
 <div class="notes-box">
