@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peacock Farm Houses — Lexington, MA</title>
+<style>
+  :root {
+    --cedar: #8B6914;
+    --cedar-light: #C4952A;
+    --slate: #3D4F5C;
+    --slate-light: #5B7080;
+    --cream: #F7F3EC;
+    --white: #FFFFFF;
+    --border: #DDD5C8;
+    --text: #2C2C2C;
+    --muted: #6B6B6B;
+    --rebuilt: #C0392B;
+    --special: #1A5276;
+    --tag-bg: #EBE5D9;
+    --shadow: 0 2px 8px rgba(0,0,0,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--cream); color: var(--text); line-height: 1.5; }
+
+  /* HEADER */
+  header { background: var(--slate); color: white; padding: 2rem 2rem 1.5rem; }
+  header h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+  header h1 span { color: var(--cedar-light); }
+  header p { margin-top: 0.4rem; color: #B0BEC5; font-size: 0.9rem; max-width: 680px; }
+  header .meta { display: flex; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  header .meta-item { font-size: 0.8rem; color: #90A4AE; }
+  header .meta-item strong { color: #CFD8DC; }
+
+  /* NAV */
+  nav { background: var(--slate-light); border-bottom: 3px solid var(--cedar); position: sticky; top: 0; z-index: 100; overflow-x: auto; white-space: nowrap; }
+  nav a { display: inline-block; color: white; text-decoration: none; padding: 0.65rem 1.1rem; font-size: 0.82rem; font-weight: 500; transition: background 0.15s; }
+  nav a:hover, nav a.active { background: var(--cedar); }
+
+  /* MAIN */
+  main { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+
+  /* SECTIONS */
+  .area-section { margin-bottom: 3rem; }
+  .area-header { background: white; border-left: 5px solid var(--cedar); padding: 1rem 1.25rem; margin-bottom: 1.25rem; box-shadow: var(--shadow); border-radius: 0 6px 6px 0; }
+  .area-header h2 { font-size: 1.2rem; color: var(--slate); }
+  .area-header .area-desc { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+  .area-header .area-stats { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+  .area-header .stat { background: var(--tag-bg); border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.75rem; color: var(--cedar); font-weight: 600; }
+
+  /* STREET GROUP */
+  .street-group { margin-bottom: 1.75rem; }
+  .street-name { font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 0.4rem 0; border-bottom: 1px solid var(--border); margin-bottom: 0.6rem; }
+
+  /* PROPERTY GRID */
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; }
+  .prop-card { background: white; border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; border: 1px solid var(--border); }
+  .prop-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.13); }
+  .prop-card.rebuilt { border-left: 4px solid var(--rebuilt); }
+  .prop-card.special { border-left: 4px solid var(--special); }
+  .prop-card.verify { border-left: 4px solid #F39C12; }
+
+  .card-top { padding: 0.75rem 0.85rem 0.6rem; }
+  .card-address { font-weight: 700; font-size: 1rem; color: var(--slate); }
+  .card-meta { display: flex; gap: 0.5rem; margin-top: 0.35rem; align-items: center; flex-wrap: wrap; }
+  .card-year { font-size: 0.78rem; font-weight: 600; color: var(--cedar); background: var(--tag-bg); padding: 0.15rem 0.5rem; border-radius: 3px; }
+  .card-parcel { font-size: 0.72rem; color: var(--muted); font-family: 'SF Mono', 'Fira Code', monospace; }
+  .card-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.35rem; font-style: italic; }
+  .card-note.rebuilt-note { color: var(--rebuilt); }
+  .card-note.special-note { color: var(--special); }
+
+  .card-actions { padding: 0.5rem 0.85rem 0.75rem; display: flex; gap: 0.5rem; border-top: 1px solid #F0EAE0; }
+  .btn { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.7rem; border-radius: 5px; text-decoration: none; cursor: pointer; border: none; transition: background 0.15s; }
+  .btn-maps { background: var(--slate); color: white; }
+  .btn-maps:hover { background: var(--slate-light); }
+  .btn-sv { background: var(--cedar); color: white; }
+  .btn-sv:hover { background: var(--cedar-light); }
+  .btn-permit { background: #1A5276; color: white; }
+  .btn-permit:hover { background: #2471A3; }
+
+  /* MAP MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 1000; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: white; border-radius: 10px; width: 90vw; max-width: 700px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+  .modal-header { padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; background: var(--slate); color: white; }
+  .modal-header h3 { font-size: 1rem; }
+  .modal-header .modal-sub { font-size: 0.8rem; color: #90A4AE; margin-top: 0.1rem; }
+  .modal-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0.2rem 0.4rem; }
+  .modal-body { position: relative; }
+  .modal-body iframe { display: block; width: 100%; height: 400px; border: none; }
+  .modal-footer { padding: 0.75rem 1.25rem; display: flex; gap: 0.75rem; background: var(--cream); border-top: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+  .modal-footer span { font-size: 0.78rem; color: var(--muted); margin-right: auto; }
+
+  /* NOTES BOX */
+  .notes-box { background: white; border-radius: 8px; box-shadow: var(--shadow); padding: 1.25rem 1.5rem; margin-bottom: 2rem; border-left: 5px solid var(--slate-light); }
+  .notes-box h3 { font-size: 0.95rem; color: var(--slate); margin-bottom: 0.6rem; }
+  .notes-box p, .notes-box li { font-size: 0.82rem; color: var(--muted); margin-bottom: 0.3rem; }
+  .notes-box ul { margin-left: 1.2rem; }
+  .notes-box a { color: var(--cedar); }
+  .legend { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem; }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--muted); }
+  .legend-swatch { width: 12px; height: 12px; border-radius: 2px; }
+
+  /* FOOTER */
+  footer { background: var(--slate); color: #90A4AE; text-align: center; padding: 1.5rem; font-size: 0.8rem; }
+  footer a { color: var(--cedar-light); }
+
+  @media (max-width: 600px) {
+    .prop-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.35rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Peacock Farm Houses <span>·</span> Lexington, MA</h1>
+  <p>Mid-Century Modern split-level homes designed by Compton &amp; Pierce (MIT graduates). AIA First Award 1957. Low-pitched gable roof, vertical cedar siding, bands of windows — built across six Lexington neighborhoods.</p>
+  <div class="meta">
+    <div class="meta-item"><strong>Historic District:</strong> National Register of Historic Places (2012)</div>
+    <div class="meta-item"><strong>Design period:</strong> 1952–1979</div>
+    <div class="meta-item"><strong>Total properties:</strong> ~235 across 6 areas</div>
+    <div class="meta-item"><strong>Permit research:</strong> <a href="https://lexingtonma.viewpointcloud.com" target="_blank" style="color:var(--cedar-light)">ViewpointCloud</a></div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <a href="#area-s">Area S — Peacock Farm HD</a>
+  <a href="#area-ak">Area AK — Shaker Glen</a>
+  <a href="#area-al">Area AL — The Grove</a>
+  <a href="#area-am">Area AM — Rumford Rd</a>
+  <a href="#area-an">Area AN — Upper Turning Mill</a>
+  <a href="#area-ba">Area BA — Pleasant Brook</a>
+  <a href="#notes">Notes</a>
+</nav>
+
+<main>
+
+<!-- NOTES / LEGEND -->
+<div class="notes-box">
+  <h3>How to use this page</h3>
+  <p>Each property card links to <strong>Google Maps</strong> (satellite + street view) and to <strong>ViewpointCloud</strong> — Lexington's permit system. Data sourced from MassGIS parcel records and the NPS National Register nomination form.</p>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--cedar)"></div> Standard Peacock Farm split-level</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--rebuilt);"></div> Rebuilt / year built does not reflect MCM original</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:var(--special)"></div> Special type (Techbuilt, Deck House, A-Series, farmhouse)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:#F39C12"></div> Mixed street — verify with street view</div>
+  </div>
+</div>
+
+<!-- ========== AREA S ========== -->
+<section class="area-section" id="area-s">
+  <div class="area-header">
+    <h2>Area S — Peacock Farm Historic District</h2>
+    <div class="area-desc">National Register of Historic Places (listed 2012) · 63 buildings · Built 1952–1960</div>
+    <div class="area-stats">
+      <span class="stat">Peacock Farm Road</span>
+      <span class="stat">Compton Circle</span>
+      <span class="stat">Mason St #1–5</span>
+      <span class="stat">Trotting Horse Drive</span>
+    </div>
+  </div>
+
+  <div class="street-group">
+    <div class="street-name">Peacock Farm Road</div>
+    <div class="prop-grid" id="pfr-grid"></div>
+  </div>
+  <div class="street-group">
+    <div class="street-name">Compton Circle</div>
+    <div class="prop-grid" id="cc-grid"></div>
+  </div>
+  <div class="street-group">
+    <div class="street-name">Mason Street (Historic District, #1–5)</div>
+    <div class="prop-grid" id="mason-hd-grid"></div>
+  </div>
+  <div class="street-group">
+    <div class="street-name">Trotting Horse Drive</div>
+    <div class="prop-grid" id="thd-grid"></div>
+  </div>
+</section>
+
+<!-- ========== AREA AK ========== -->
+<section class="area-section" id="area-ak">
+  <div class="area-header">
+    <h2>Area AK — Shaker Glen / Glen at Countryside</h2>
+    <div class="area-desc">26 houses · Built 1960–1966 · Off Woburn Street</div>
+    <div class="area-stats">
+      <span class="stat">Fessenden Way</span>
+      <span class="stat">Marshall Road</span>
+      <span class="stat">Rogers Road</span>
+      <span class="stat">Rolfe Road</span>
+    </div>
+  </div>
+  <div class="street-group"><div class="street-name">Fessenden Way</div><div class="prop-grid" id="fessenden-grid"></div></div>
+  <div class="street-group"><div class="street-name">Marshall Road</div><div class="prop-grid" id="marshall-grid"></div></div>
+  <div class="street-group"><div class="street-name">Rogers Road</div><div class="prop-grid" id="rogers-grid"></div></div>
+  <div class="street-group"><div class="street-name">Rolfe Road</div><div class="prop-grid" id="rolfe-grid"></div></div>
+</section>
+
+<!-- ========== AREA AL ========== -->
+<section class="area-section" id="area-al">
+  <div class="area-header">
+    <h2>Area AL — The Grove</h2>
+    <div class="area-desc">~40 houses · Built 1962–1965 · North Lexington near Rt 95/128</div>
+    <div class="area-stats">
+      <span class="stat">Angier Road</span>
+      <span class="stat">Diamond Road</span>
+      <span class="stat">North Emerson Road</span>
+      <span class="stat">White Terrace</span>
+      <span class="stat">Grove St / Burlington St (mixed)</span>
+    </div>
+  </div>
+  <div class="street-group"><div class="street-name">Angier Road</div><div class="prop-grid" id="angier-grid"></div></div>
+  <div class="street-group"><div class="street-name">Diamond Road</div><div class="prop-grid" id="diamond-grid"></div></div>
+  <div class="street-group"><div class="street-name">North Emerson Road</div><div class="prop-grid" id="nemerson-grid"></div></div>
+  <div class="street-group"><div class="street-name">White Terrace</div><div class="prop-grid" id="whiteter-grid"></div></div>
+  <div class="street-group"><div class="street-name">Grove Street &amp; Burlington Street <em style="font-weight:normal;text-transform:none;font-size:0.85em">(mixed street — verify)</em></div><div class="prop-grid" id="grove-burl-grid"></div></div>
+</section>
+
+<!-- ========== AREA AM ========== -->
+<section class="area-section" id="area-am">
+  <div class="area-header">
+    <h2>Area AM — Rumford Road</h2>
+    <div class="area-desc">11 houses · Built 1957–1959 · Off Woburn Street, one curvilinear street</div>
+    <div class="area-stats"><span class="stat">Rumford Road</span></div>
+  </div>
+  <div class="street-group"><div class="street-name">Rumford Road</div><div class="prop-grid" id="rumford-grid"></div></div>
+</section>
+
+<!-- ========== AREA AN ========== -->
+<section class="area-section" id="area-an">
+  <div class="area-header">
+    <h2>Area AN — Upper Turning Mill Road</h2>
+    <div class="area-desc">47 houses · Built 1957–1961 · North Lexington east of Grove Street</div>
+    <div class="area-stats">
+      <span class="stat">Turning Mill Road</span>
+      <span class="stat">Dewey Road</span>
+      <span class="stat">Gould Road</span>
+      <span class="stat">Grimes Road</span>
+    </div>
+  </div>
+  <div class="street-group"><div class="street-name">Turning Mill Road</div><div class="prop-grid" id="turningmill-grid"></div></div>
+  <div class="street-group"><div class="street-name">Dewey Road</div><div class="prop-grid" id="dewey-grid"></div></div>
+  <div class="street-group"><div class="street-name">Gould Road</div><div class="prop-grid" id="gould-grid"></div></div>
+  <div class="street-group"><div class="street-name">Grimes Road</div><div class="prop-grid" id="grimes-grid"></div></div>
+</section>
+
+<!-- ========== AREA BA ========== -->
+<section class="area-section" id="area-ba">
+  <div class="area-header">
+    <h2>Area BA — Pleasant Brook</h2>
+    <div class="area-desc">34 houses · Built 1967–1979 · Adjacent to Peacock Farm Historic District</div>
+    <div class="area-stats">
+      <span class="stat">Mason Street #6–29</span>
+      <span class="stat">White Pine Lane</span>
+      <span class="stat">Pleasant Street #64</span>
+    </div>
+  </div>
+  <div class="street-group"><div class="street-name">Mason Street (Pleasant Brook, #6–29)</div><div class="prop-grid" id="mason-pb-grid"></div></div>
+  <div class="street-group"><div class="street-name">White Pine Lane</div><div class="prop-grid" id="whitepine-grid"></div></div>
+  <div class="street-group"><div class="street-name">Pleasant Street</div><div class="prop-grid" id="pleasant-grid"></div></div>
+</section>
+
+<!-- NOTES -->
+<section id="notes">
+  <div class="notes-box">
+    <h3>Permit Research — ViewpointCloud</h3>
+    <ul>
+      <li>Search for any property at: <a href="https://lexingtonma.viewpointcloud.com" target="_blank">lexingtonma.viewpointcloud.com</a></li>
+      <li>Location URL format: <code>https://lexingtonma.viewpointcloud.com/locations/[ID]</code></li>
+      <li>Record URL format: <code>https://lexingtonma.viewpointcloud.com/records/[ID]</code></li>
+    </ul>
+    <h3 style="margin-top:1rem">Data Sources</h3>
+    <ul>
+      <li>Parcel data: MassGIS ArcGIS REST API (<code>L3_TAXPAR_POLY_ASSESS_gdb</code>)</li>
+      <li>Historic inventory: NPS Form 10-900, Peacock Farm Historic District nomination (2012)</li>
+      <li>Area surveys: Lexington Historical Commission area surveys (Areas AK–BA)</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<!-- MAP MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-title">Address</h3>
+        <div class="modal-sub" id="modal-sub">Lexington, MA</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <iframe id="modal-iframe" src="" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="modal-footer">
+      <span id="modal-parcel"></span>
+      <a id="modal-sv-link" href="#" target="_blank" class="btn btn-maps">↗ Open in Google Maps</a>
+      <a id="modal-permit-link" href="https://lexingtonma.viewpointcloud.com" target="_blank" class="btn btn-permit">🔍 Search Permits</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Peacock Farm Houses · Lexington, MA · Data from MassGIS &amp; NPS National Register</p>
+  <p style="margin-top:0.4rem"><a href="https://lexingtonma.viewpointcloud.com" target="_blank">ViewpointCloud Permit Search</a> · <a href="https://www.nps.gov/nr/research/" target="_blank">National Register</a></p>
+</footer>
+
+<script>
+// ─── PROPERTY DATA ───────────────────────────────────────────────────────────
+const PROPS = {
+  "pfr-grid": [
+    {a:"2 Peacock Farm Rd", p:"8-82", y:1958},
+    {a:"3 Peacock Farm Rd", p:"7-91C", y:1835, note:"Historic farmhouse", type:"special"},
+    {a:"4 Peacock Farm Rd", p:"8-83", y:1953},
+    {a:"6 Peacock Farm Rd", p:"8-84", y:1958},
+    {a:"8 Peacock Farm Rd", p:"8-85", y:1958},
+    {a:"9 Peacock Farm Rd", p:"8-94", y:1953},
+    {a:"10 Peacock Farm Rd", p:"8-86", y:1954, note:"A-Series (single-story)", type:"special"},
+    {a:"12 Peacock Farm Rd", p:"8-87", y:1958},
+    {a:"15 Peacock Farm Rd", p:"8-93", y:1956},
+    {a:"17 Peacock Farm Rd", p:"7-89", y:1958},
+    {a:"18 Peacock Farm Rd", p:"7-10", y:1956},
+    {a:"19 Peacock Farm Rd", p:"7-88", y:1956},
+    {a:"22 Peacock Farm Rd", p:"7-22", y:1956},
+    {a:"23 Peacock Farm Rd", p:"7-87", y:1958},
+    {a:"24 Peacock Farm Rd", p:"7-23", y:1956},
+    {a:"25 Peacock Farm Rd", p:"7-86", y:1957},
+    {a:"26 Peacock Farm Rd", p:"7-24", y:1956},
+    {a:"27 Peacock Farm Rd", p:"7-85", y:1956},
+    {a:"28 Peacock Farm Rd", p:"7-25", y:1956},
+    {a:"29 Peacock Farm Rd", p:"7-84", y:1957},
+    {a:"30 Peacock Farm Rd", p:"7-26", y:1956},
+    {a:"31 Peacock Farm Rd", p:"7-83", y:1957},
+    {a:"32 Peacock Farm Rd", p:"7-27", y:1956},
+    {a:"33 Peacock Farm Rd", p:"7-82", y:1956},
+    {a:"34 Peacock Farm Rd", p:"7-28", y:1956},
+    {a:"35 Peacock Farm Rd", p:"7-81A", y:1957},
+    {a:"37 Peacock Farm Rd", p:"7-80C", y:1961},
+    {a:"38 Peacock Farm Rd", p:"7-29", y:1956},
+    {a:"39 Peacock Farm Rd", p:"7-79A", y:2018, note:"Rebuilt 2018", type:"rebuilt"},
+    {a:"40 Peacock Farm Rd", p:"7-30", y:1956},
+    {a:"41 Peacock Farm Rd", p:"7-78", y:1956},
+    {a:"42 Peacock Farm Rd", p:"7-31", y:1958},
+    {a:"43 Peacock Farm Rd", p:"7-76", y:1957},
+    {a:"45 Peacock Farm Rd", p:"7-75", y:1958},
+    {a:"46 Peacock Farm Rd", p:"7-37", y:1958},
+    {a:"47 Peacock Farm Rd", p:"7-74", y:1958},
+    {a:"48 Peacock Farm Rd", p:"7-38", y:1960},
+    {a:"49 Peacock Farm Rd", p:"7-73", y:1958},
+    {a:"50 Peacock Farm Rd", p:"7-39", y:1958},
+    {a:"51 Peacock Farm Rd", p:"7-72", y:1958},
+    {a:"52 Peacock Farm Rd", p:"7-40", y:1958},
+    {a:"53 Peacock Farm Rd", p:"7-71", y:1958},
+  ],
+  "cc-grid": [
+    {a:"1 Compton Cir", p:"7-36", y:1957},
+    {a:"3 Compton Cir", p:"7-35", y:1957},
+    {a:"4 Compton Cir", p:"7-32", y:1958},
+    {a:"5 Compton Cir", p:"7-34", y:1957},
+    {a:"6 Compton Cir", p:"7-33", y:1957},
+  ],
+  "mason-hd-grid": [
+    {a:"1 Mason St", p:"8-92", y:1956},
+    {a:"2 Mason St", p:"8-88", y:1956},
+    {a:"4 Mason St", p:"8-89", y:1956},
+    {a:"5 Mason St", p:"8-91", y:1953},
+  ],
+  "thd-grid": [
+    {a:"4 Trotting Horse Dr", p:"7-11", y:1956},
+    {a:"6 Trotting Horse Dr", p:"7-12", y:1958},
+    {a:"7 Trotting Horse Dr", p:"7-21", y:1958},
+    {a:"8 Trotting Horse Dr", p:"7-13", y:1955},
+    {a:"10 Trotting Horse Dr", p:"7-14", y:1954, note:"Techbuilt design", type:"special"},
+    {a:"11 Trotting Horse Dr", p:"7-20", y:1955},
+    {a:"12 Trotting Horse Dr", p:"7-15", y:1958},
+    {a:"14 Trotting Horse Dr", p:"7-16", y:1956},
+    {a:"15 Trotting Horse Dr", p:"7-19", y:1956},
+    {a:"16 Trotting Horse Dr", p:"7-17", y:1958},
+    {a:"17 Trotting Horse Dr", p:"7-18", y:1955},
+  ],
+  "fessenden-grid": [
+    {a:"4 Fessenden Way", p:"53-49", y:1960},
+    {a:"5 Fessenden Way", p:"53-45", y:1960},
+    {a:"6 Fessenden Way", p:"53-50", y:1960},
+    {a:"7 Fessenden Way", p:"53-44", y:1960},
+    {a:"9 Fessenden Way", p:"53-43", y:1960},
+    {a:"10 Fessenden Way", p:"53-56", y:1961},
+    {a:"11 Fessenden Way", p:"53-42", y:1960},
+    {a:"12 Fessenden Way", p:"53-57", y:1961},
+  ],
+  "marshall-grid": [
+    {a:"2 Marshall Rd", p:"53-40", y:2003, note:"Rebuilt 2003", type:"rebuilt"},
+    {a:"3 Marshall Rd", p:"53-64A", y:1960},
+    {a:"4 Marshall Rd", p:"53-41", y:1960},
+    {a:"5 Marshall Rd", p:"53-63", y:1960},
+    {a:"7 Marshall Rd", p:"53-62", y:1961},
+    {a:"8 Marshall Rd", p:"53-58", y:1961},
+    {a:"9 Marshall Rd", p:"53-61", y:1961},
+    {a:"10 Marshall Rd", p:"53-59", y:1961},
+    {a:"11 Marshall Rd", p:"53-60", y:1960},
+  ],
+  "rogers-grid": [
+    {a:"2 Rogers Rd", p:"53-51", y:1960},
+    {a:"3 Rogers Rd", p:"53-55", y:1960},
+    {a:"4 Rogers Rd", p:"53-52", y:1961},
+    {a:"5 Rogers Rd", p:"53-54", y:1960},
+    {a:"6 Rogers Rd", p:"53-53", y:1965},
+  ],
+  "rolfe-grid": [
+    {a:"3 Rolfe Rd", p:"53-47", y:1961},
+    {a:"4 Rolfe Rd", p:"54-102", y:1961},
+    {a:"6 Rolfe Rd", p:"54-103", y:1960},
+    {a:"7 Rolfe Rd", p:"53-48", y:1961},
+    {a:"1 Rolfe Rd", p:"53-31", y:2000, note:"Rebuilt 2000", type:"rebuilt"},
+    {a:"8 Rolfe Rd", p:"54-104", y:2011, note:"Rebuilt 2011", type:"rebuilt"},
+  ],
+  "angier-grid": [
+    {a:"2 Angier Rd", p:"77-164", y:1963},
+    {a:"3 Angier Rd", p:"77-163", y:1963},
+    {a:"4 Angier Rd", p:"77-165", y:1963},
+    {a:"5 Angier Rd", p:"77-162", y:1962},
+    {a:"6 Angier Rd", p:"77-166", y:1962},
+    {a:"7 Angier Rd", p:"77-161", y:1962},
+    {a:"8 Angier Rd", p:"82-93", y:1962},
+    {a:"10 Angier Rd", p:"82-92", y:1962},
+    {a:"11 Angier Rd", p:"77-160", y:1962},
+  ],
+  "diamond-grid": [
+    {a:"2 Diamond Rd", p:"77-142", y:2014, note:"Rebuilt 2014", type:"rebuilt"},
+    {a:"3 Diamond Rd", p:"77-172", y:1963},
+    {a:"5 Diamond Rd", p:"77-171", y:1963},
+    {a:"7 Diamond Rd", p:"77-170", y:1963},
+    {a:"8 Diamond Rd", p:"77-178", y:1964},
+    {a:"9 Diamond Rd", p:"77-169", y:1963},
+    {a:"10 Diamond Rd", p:"77-179", y:1963},
+    {a:"11 Diamond Rd", p:"77-168", y:1962},
+    {a:"12 Diamond Rd", p:"82-99", y:1963},
+    {a:"15 Diamond Rd", p:"82-98", y:1962},
+    {a:"16 Diamond Rd", p:"82-100", y:1962},
+    {a:"17 Diamond Rd", p:"82-97", y:1962},
+    {a:"18 Diamond Rd", p:"82-101A", y:1962},
+  ],
+  "nemerson-grid": [
+    {a:"351 North Emerson Rd", p:"82-83B", y:1965},
+    {a:"352 North Emerson Rd", p:"77-159", y:1965},
+    {a:"353 North Emerson Rd", p:"82-91", y:1965},
+    {a:"355 North Emerson Rd", p:"82-90", y:1964},
+    {a:"357 North Emerson Rd", p:"82-89", y:1965},
+    {a:"358 North Emerson Rd", p:"82-94", y:1962},
+    {a:"359 North Emerson Rd", p:"82-88", y:1965},
+    {a:"360 North Emerson Rd", p:"82-95", y:1961},
+    {a:"361 North Emerson Rd", p:"82-87", y:1964},
+    {a:"362 North Emerson Rd", p:"82-96", y:1962},
+    {a:"363 North Emerson Rd", p:"82-86", y:1964},
+    {a:"365 North Emerson Rd", p:"82-85", y:1965},
+  ],
+  "whiteter-grid": [
+    {a:"2 White Ter", p:"77-173", y:1963},
+    {a:"3 White Ter", p:"77-177", y:1962},
+    {a:"4 White Ter", p:"77-174", y:1963},
+    {a:"5 White Ter", p:"77-176", y:1963},
+    {a:"7 White Ter", p:"77-175", y:1963},
+  ],
+  "grove-burl-grid": [
+    {a:"5 Grove St", p:"77-145", y:1961, type:"verify"},
+    {a:"11 Grove St", p:"77-144", y:1961, type:"verify"},
+    {a:"60 Burlington St", p:"77-91", y:1961, type:"verify"},
+    {a:"96 Burlington St", p:"77-146", y:1960, type:"verify"},
+    {a:"105 Burlington St", p:"77-38", y:1961, type:"verify"},
+  ],
+  "rumford-grid": [
+    {a:"4 Rumford Rd", p:"46-16", y:1959},
+    {a:"5 Rumford Rd", p:"46-18", y:1959},
+    {a:"6 Rumford Rd", p:"46-17", y:1959},
+    {a:"7 Rumford Rd", p:"54-123", y:1959},
+    {a:"8 Rumford Rd", p:"54-128", y:1959},
+    {a:"9 Rumford Rd", p:"54-122", y:1959},
+    {a:"10 Rumford Rd", p:"54-129", y:1959},
+    {a:"11 Rumford Rd", p:"54-121", y:1959},
+    {a:"12 Rumford Rd", p:"54-130", y:1959},
+    {a:"13 Rumford Rd", p:"54-120", y:1959},
+    {a:"14 Rumford Rd", p:"54-131", y:1959},
+    {a:"15 Rumford Rd", p:"54-119", y:1957},
+    {a:"16 Rumford Rd", p:"54-132", y:1957},
+    {a:"17 Rumford Rd", p:"54-118", y:1957},
+    {a:"2 Rumford Rd", p:"46-15", y:2014, note:"Rebuilt 2014", type:"rebuilt"},
+  ],
+  "turningmill-grid": [
+    {a:"4 Turning Mill Rd", p:"82-32", y:1956},
+    {a:"7 Turning Mill Rd", p:"82-79", y:1957},
+    {a:"9 Turning Mill Rd", p:"82-78", y:1954},
+    {a:"11 Turning Mill Rd", p:"82-77", y:1961},
+    {a:"12 Turning Mill Rd", p:"82-45", y:1960},
+    {a:"13 Turning Mill Rd", p:"82-76", y:1960},
+    {a:"13A Turning Mill Rd", p:"82-53", y:1960},
+    {a:"14 Turning Mill Rd", p:"82-46", y:1960},
+    {a:"15 Turning Mill Rd", p:"82-52", y:1960},
+    {a:"16 Turning Mill Rd", p:"82-47", y:1960},
+    {a:"17 Turning Mill Rd", p:"82-51", y:1960},
+    {a:"18 Turning Mill Rd", p:"82-48", y:1960},
+    {a:"19 Turning Mill Rd", p:"82-50A", y:1961},
+    {a:"20 Turning Mill Rd", p:"82-49", y:1960},
+    {a:"21 Turning Mill Rd", p:"86-51A", y:1960},
+    {a:"22 Turning Mill Rd", p:"86-52", y:1960},
+    {a:"23 Turning Mill Rd", p:"86-50A", y:1961},
+    {a:"24 Turning Mill Rd", p:"86-53", y:1961},
+    {a:"25 Turning Mill Rd", p:"86-49A", y:1965},
+    {a:"26 Turning Mill Rd", p:"86-54", y:1961},
+    {a:"27 Turning Mill Rd", p:"86-48A", y:1965},
+    {a:"28 Turning Mill Rd", p:"86-55", y:1961},
+    {a:"29 Turning Mill Rd", p:"86-47", y:1961},
+    {a:"30 Turning Mill Rd", p:"86-56", y:1961},
+    {a:"31 Turning Mill Rd", p:"86-31", y:1959},
+    {a:"32 Turning Mill Rd", p:"86-57", y:1958},
+    {a:"34 Turning Mill Rd", p:"86-58", y:1959},
+    {a:"36 Turning Mill Rd", p:"86-10", y:1959},
+    {a:"38 Turning Mill Rd", p:"86-11", y:1959},
+    {a:"39 Turning Mill Rd", p:"86-25", y:1957},
+    {a:"40 Turning Mill Rd", p:"86-12", y:1957},
+    {a:"41 Turning Mill Rd", p:"86-24", y:1960},
+    {a:"45 Turning Mill Rd", p:"86-18A", y:1958},
+    {a:"46 Turning Mill Rd", p:"86-16", y:1960},
+    {a:"47 Turning Mill Rd", p:"89-31", y:1959},
+    {a:"48 Turning Mill Rd", p:"86-17", y:1959},
+    {a:"49 Turning Mill Rd", p:"89-30", y:1961},
+    {a:"50 Turning Mill Rd", p:"89-33", y:1961},
+    {a:"51 Turning Mill Rd", p:"89-29", y:1961},
+    {a:"52 Turning Mill Rd", p:"89-34", y:1961},
+    {a:"53 Turning Mill Rd", p:"89-28", y:1959},
+    {a:"54 Turning Mill Rd", p:"89-35", y:1959},
+    {a:"55 Turning Mill Rd", p:"89-27", y:1960},
+    {a:"57 Turning Mill Rd", p:"89-26", y:1959},
+    {a:"58 Turning Mill Rd", p:"89-37", y:1959},
+    {a:"59 Turning Mill Rd", p:"89-25", y:1960},
+    {a:"60 Turning Mill Rd", p:"89-38", y:1959},
+    {a:"61 Turning Mill Rd", p:"89-24", y:1961},
+    {a:"62 Turning Mill Rd", p:"89-39", y:1959},
+    {a:"64 Turning Mill Rd", p:"89-40", y:1959},
+    {a:"65 Turning Mill Rd", p:"89-23", y:1960},
+  ],
+  "dewey-grid": [
+    {a:"5 Dewey Rd", p:"89-14", y:1955},
+    {a:"8 Dewey Rd", p:"89-41", y:1959},
+    {a:"10 Dewey Rd", p:"89-42", y:1958},
+    {a:"14 Dewey Rd", p:"89-43", y:1958},
+    {a:"15 Dewey Rd", p:"89-46", y:1958},
+    {a:"16 Dewey Rd", p:"89-44", y:1957},
+  ],
+  "gould-grid": [
+    {a:"3 Gould Rd", p:"89-51", y:1958},
+    {a:"4 Gould Rd", p:"89-12", y:1958},
+    {a:"5 Gould Rd", p:"89-50", y:1958},
+    {a:"7 Gould Rd", p:"89-49", y:1957},
+    {a:"8 Gould Rd", p:"89-19", y:1958},
+    {a:"9 Gould Rd", p:"89-48", y:1959},
+    {a:"10 Gould Rd", p:"89-20", y:1959},
+  ],
+  "grimes-grid": [
+    {a:"2 Grimes Rd", p:"86-20A", y:1960},
+    {a:"4 Grimes Rd", p:"86-21", y:1959},
+    {a:"5 Grimes Rd", p:"86-22", y:1960},
+  ],
+  "mason-pb-grid": [
+    {a:"6 Mason St", p:"8-155", y:1967},
+    {a:"7 Mason St", p:"8-153", y:1969},
+    {a:"8 Mason St", p:"8-156", y:1969},
+    {a:"9 Mason St", p:"8-154", y:1969},
+    {a:"11 Mason St", p:"14-139", y:1969},
+    {a:"15 Mason St", p:"14-140", y:1969},
+    {a:"17 Mason St", p:"14-145", y:1969},
+    {a:"18 Mason St", p:"14-138", y:1967},
+    {a:"19 Mason St", p:"14-144", y:1969},
+    {a:"20 Mason St", p:"14-137", y:1967},
+    {a:"21 Mason St", p:"14-143A", y:1970},
+    {a:"22 Mason St", p:"14-136", y:1968},
+    {a:"23 Mason St", p:"14-149", y:1970},
+    {a:"24 Mason St", p:"14-135", y:1970},
+    {a:"25 Mason St", p:"14-148", y:1970},
+    {a:"26 Mason St", p:"14-134B", y:1970},
+    {a:"27 Mason St", p:"14-147", y:1970},
+    {a:"28 Mason St", p:"14-133B", y:1968},
+    {a:"29 Mason St", p:"14-146", y:1970},
+  ],
+  "whitepine-grid": [
+    {a:"1 White Pine Ln", p:"14-129", y:1967},
+    {a:"2 White Pine Ln", p:"8-157", y:1967},
+    {a:"3 White Pine Ln", p:"14-130", y:1967},
+    {a:"4 White Pine Ln", p:"8-158", y:1967},
+    {a:"5 White Pine Ln", p:"14-131", y:1967},
+    {a:"6 White Pine Ln", p:"8-159", y:1967},
+    {a:"7 White Pine Ln", p:"14-132A", y:1967},
+    {a:"8 White Pine Ln", p:"8-160", y:1967},
+    {a:"9 White Pine Ln", p:"8-162A", y:1967},
+    {a:"10 White Pine Ln", p:"8-161", y:1967},
+    {a:"11 White Pine Ln", p:"8-163C", y:1969},
+    {a:"12 White Pine Ln", p:"8-164", y:1972, note:"Deck House", type:"special"},
+    {a:"13 White Pine Ln", p:"8-163B", y:1968},
+    {a:"14 White Pine Ln", p:"8-165", y:1979, note:"Deck House", type:"special"},
+  ],
+  "pleasant-grid": [
+    {a:"64 Pleasant St", p:"14-56C", y:1970},
+  ],
+};
+
+// ─── RENDER CARDS ────────────────────────────────────────────────────────────
+function mapsUrl(addr) {
+  return "https://www.google.com/maps?q=" + encodeURIComponent(addr + ", Lexington, MA 02421");
+}
+function streetViewUrl(addr) {
+  return "https://www.google.com/maps?q=" + encodeURIComponent(addr + ", Lexington, MA 02421") + "&layer=c";
+}
+function embedUrl(addr) {
+  return "https://maps.google.com/maps?q=" + encodeURIComponent(addr + ", Lexington, MA 02421") + "&output=embed&z=18&t=k";
+}
+function permitUrl() {
+  return "https://lexingtonma.viewpointcloud.com";
+}
+
+function openModal(addr, parcel) {
+  document.getElementById("modal-title").textContent = addr;
+  document.getElementById("modal-sub").textContent = "Lexington, MA 02421 · Parcel " + parcel;
+  document.getElementById("modal-parcel").textContent = "Parcel: " + parcel;
+  document.getElementById("modal-iframe").src = embedUrl(addr);
+  document.getElementById("modal-sv-link").href = streetViewUrl(addr);
+  document.getElementById("modal").classList.add("open");
+}
+function closeModal() {
+  document.getElementById("modal").classList.remove("open");
+  document.getElementById("modal-iframe").src = "";
+}
+document.getElementById("modal").addEventListener("click", function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModal(); });
+
+function buildCard(prop) {
+  const type = prop.type || "standard";
+  const cardClass = "prop-card" + (type !== "standard" ? " " + type : "");
+  const noteClass = type === "rebuilt" ? "card-note rebuilt-note" : type === "special" ? "card-note special-note" : "card-note";
+  const noteHtml = prop.note ? `<div class="${noteClass}">${prop.note}</div>` : "";
+  return `<div class="${cardClass}">
+    <div class="card-top">
+      <div class="card-address">${prop.a}</div>
+      <div class="card-meta">
+        <span class="card-year">${prop.y}</span>
+        <span class="card-parcel">${prop.p}</span>
+      </div>
+      ${noteHtml}
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-sv" onclick='openModal(${JSON.stringify(prop.a)}, ${JSON.stringify(prop.p)})'>📍 Map View</button>
+      <a href="${streetViewUrl(prop.a)}" target="_blank" class="btn btn-maps">↗ Street View</a>
+      <a href="${permitUrl()}" target="_blank" class="btn btn-permit">Permits</a>
+    </div>
+  </div>`;
+}
+
+Object.entries(PROPS).forEach(([gridId, props]) => {
+  const el = document.getElementById(gridId);
+  if (el) el.innerHTML = props.map(buildCard).join("");
+});
+
+// ─── NAV HIGHLIGHT ───────────────────────────────────────────────────────────
+const sections = document.querySelectorAll(".area-section, #notes");
+const navLinks = document.querySelectorAll("nav a");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove("active"));
+      const id = e.target.id;
+      const active = document.querySelector(`nav a[href="#${id}"]`);
+      if (active) active.classList.add("active");
+    }
+  });
+}, { threshold: 0.2 });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
