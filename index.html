@@ -53,23 +53,33 @@
   .street-name { font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding: 0.4rem 0; border-bottom: 1px solid var(--border); margin-bottom: 0.6rem; }
 
   /* PROPERTY GRID */
-  .prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; }
+  .prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
   .prop-card { background: white; border-radius: 8px; box-shadow: var(--shadow); overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; border: 1px solid var(--border); }
   .prop-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.13); }
   .prop-card.rebuilt { border-left: 4px solid var(--rebuilt); }
   .prop-card.special { border-left: 4px solid var(--special); }
   .prop-card.verify { border-left: 4px solid #F39C12; }
 
-  .card-top { padding: 0.75rem 0.85rem 0.6rem; }
-  .card-address { font-weight: 700; font-size: 1rem; color: var(--slate); }
-  .card-meta { display: flex; gap: 0.5rem; margin-top: 0.35rem; align-items: center; flex-wrap: wrap; }
+  /* CARD IMAGE */
+  .card-img { width: 100%; height: 180px; overflow: hidden; position: relative; background: #2C3E50; cursor: pointer; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+  .card-img:hover img { transform: scale(1.03); }
+  .card-img .no-img { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; color: #7F8C8D; font-size: 0.78rem; cursor: pointer; }
+  .card-img .no-img span { font-size: 2rem; }
+  .card-img .sv-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.6)); padding: 0.5rem 0.75rem 0.4rem; opacity: 0; transition: opacity 0.2s; }
+  .card-img:hover .sv-overlay { opacity: 1; }
+  .card-img .sv-overlay a { color: white; font-size: 0.72rem; font-weight: 600; text-decoration: none; }
+
+  .card-top { padding: 0.6rem 0.85rem 0.5rem; }
+  .card-address { font-weight: 700; font-size: 0.95rem; color: var(--slate); }
+  .card-meta { display: flex; gap: 0.5rem; margin-top: 0.3rem; align-items: center; flex-wrap: wrap; }
   .card-year { font-size: 0.78rem; font-weight: 600; color: var(--cedar); background: var(--tag-bg); padding: 0.15rem 0.5rem; border-radius: 3px; }
   .card-parcel { font-size: 0.72rem; color: var(--muted); font-family: 'SF Mono', 'Fira Code', monospace; }
-  .card-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.35rem; font-style: italic; }
+  .card-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.3rem; font-style: italic; }
   .card-note.rebuilt-note { color: var(--rebuilt); }
   .card-note.special-note { color: var(--special); }
 
-  .card-actions { padding: 0.5rem 0.85rem 0.75rem; display: flex; gap: 0.5rem; border-top: 1px solid #F0EAE0; }
+  .card-actions { padding: 0.45rem 0.85rem 0.65rem; display: flex; gap: 0.5rem; border-top: 1px solid #F0EAE0; }
   .btn { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; padding: 0.35rem 0.7rem; border-radius: 5px; text-decoration: none; cursor: pointer; border: none; transition: background 0.15s; }
   .btn-maps { background: var(--slate); color: white; }
   .btn-maps:hover { background: var(--slate-light); }
@@ -414,10 +424,15 @@
     <div class="modal-body">
       <iframe id="modal-iframe" src="" allowfullscreen loading="lazy"></iframe>
     </div>
-    <div class="modal-footer">
-      <span id="modal-parcel"></span>
-      <a id="modal-sv-link" href="#" target="_blank" class="btn btn-maps">↗ Open in Google Maps</a>
-      <a id="modal-permit-link" href="https://lexingtonma.viewpointcloud.com" target="_blank" class="btn btn-permit">🔍 Search Permits</a>
+    <div class="modal-footer" style="flex-direction:column;gap:0.6rem;align-items:stretch">
+      <a id="modal-sv-link" href="#" target="_blank" class="btn btn-sv" style="justify-content:center;padding:0.6rem 1rem;font-size:0.85rem">
+        📸 Open Street View in Google Maps →
+      </a>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+        <span id="modal-parcel" style="font-size:0.75rem;color:var(--muted);flex:1"></span>
+        <a id="modal-permit-link" href="https://lexingtonma.viewpointcloud.com" target="_blank" class="btn btn-permit">🔍 Permits</a>
+      </div>
+      <p style="font-size:0.72rem;color:var(--muted)">💡 Tip: drag the yellow Pegman icon <strong>🟡</strong> (bottom-right of map) onto the street to enter Street View directly in the map above.</p>
     </div>
   </div>
 </div>
@@ -732,7 +747,7 @@ function streetViewUrl(addr) {
   return "https://www.google.com/maps?q=" + encodeURIComponent(addr + ", Lexington, MA 02421") + "&layer=c";
 }
 function embedUrl(addr) {
-  return "https://maps.google.com/maps?q=" + encodeURIComponent(addr + ", Lexington, MA 02421") + "&output=embed&z=18&t=k";
+  return "https://maps.google.com/maps?q=" + encodeURIComponent(addr + ", Lexington, MA 02421") + "&output=embed&z=19";
 }
 function permitUrl() {
   return "https://lexingtonma.viewpointcloud.com";
@@ -755,12 +770,31 @@ document.getElementById("modal").addEventListener("click", function(e) {
 });
 document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModal(); });
 
+function imgPath(parcel) {
+  return "images/" + parcel + ".jpg";
+}
+
 function buildCard(prop) {
   const type = prop.type || "standard";
   const cardClass = "prop-card" + (type !== "standard" ? " " + type : "");
   const noteClass = type === "rebuilt" ? "card-note rebuilt-note" : type === "special" ? "card-note special-note" : "card-note";
   const noteHtml = prop.note ? `<div class="${noteClass}">${prop.note}</div>` : "";
+  const svUrl = streetViewUrl(prop.a);
+  const imgSrc = imgPath(prop.p);
+
   return `<div class="${cardClass}">
+    <div class="card-img" onclick='openModal(${JSON.stringify(prop.a)}, ${JSON.stringify(prop.p)})'>
+      <img src="${imgSrc}" alt="${prop.a}" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="no-img" style="display:none">
+        <span>🏠</span>
+        <div>No photo cached</div>
+        <div style="font-size:0.68rem">Click to open map</div>
+      </div>
+      <div class="sv-overlay">
+        <a href="${svUrl}" target="_blank" onclick="event.stopPropagation()">↗ Open Street View in Google Maps</a>
+      </div>
+    </div>
     <div class="card-top">
       <div class="card-address">${prop.a}</div>
       <div class="card-meta">
@@ -770,8 +804,8 @@ function buildCard(prop) {
       ${noteHtml}
     </div>
     <div class="card-actions">
-      <button class="btn btn-sv" onclick='openModal(${JSON.stringify(prop.a)}, ${JSON.stringify(prop.p)})'>📍 Map View</button>
-      <a href="${streetViewUrl(prop.a)}" target="_blank" class="btn btn-maps">↗ Street View</a>
+      <a href="${svUrl}" target="_blank" class="btn btn-sv">📸 Street View</a>
+      <button class="btn btn-maps" onclick='openModal(${JSON.stringify(prop.a)}, ${JSON.stringify(prop.p)})'>📍 Map</button>
       <a href="${permitUrl()}" target="_blank" class="btn btn-permit">Permits</a>
     </div>
   </div>`;
