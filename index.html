@@ -243,103 +243,81 @@
       </div>
     </div>
     <div class="hero-svg-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-42 -5 384 418" width="280" height="304" aria-label="Stylized peacock illustration">
-        <!-- TAIL FEATHERS - 9 feathers rotating around pivot (150, 380) -->
-        <!-- Feather at -72° -->
-        <g transform="rotate(-72, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#002B4F" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#002B4F" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#001520"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 0 230 212" width="200" height="184" aria-label="Peacock Farm logo">
+        <!-- Corner bracket decorations (neo-brutalist frame) -->
+        <polyline points="40,20 22,20 22,38" fill="none" stroke="#FFF8EC" stroke-width="3.5" stroke-linecap="square"/>
+        <polyline points="160,20 178,20 178,38" fill="none" stroke="#FFF8EC" stroke-width="3.5" stroke-linecap="square"/>
+
+        <!-- TAIL FEATHERS: 9 feathers pivoting at (100,128) -->
+        <!-- Unrotated: stem (100,128)→(100,52), leaf cy=40, eye cy=31 -->
+        <g transform="rotate(-72, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at -48° -->
-        <g transform="rotate(-48, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#3DAA6E" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#3DAA6E" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#002B4F"/>
+        <g transform="rotate(-54, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at -24° -->
-        <g transform="rotate(-24, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#00C4B8" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#00C4B8" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#002B4F"/>
+        <g transform="rotate(-36, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at -8° -->
-        <g transform="rotate(-8, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#3DAA6E" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#3DAA6E" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#002B4F"/>
+        <g transform="rotate(-18, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Center feather at 0° -->
-        <g>
-          <ellipse cx="150" cy="290" rx="9" ry="90" fill="#00C4B8" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="18" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="11" fill="#00C4B8" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5.5" fill="#002B4F"/>
+        <!-- Center feather -->
+        <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+        <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+        <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
+        <g transform="rotate(18, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at 8° -->
-        <g transform="rotate(8, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#3DAA6E" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#3DAA6E" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#002B4F"/>
+        <g transform="rotate(36, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at 24° -->
-        <g transform="rotate(24, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#00C4B8" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#00C4B8" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#002B4F"/>
+        <g transform="rotate(54, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at 48° -->
-        <g transform="rotate(48, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#3DAA6E" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#3DAA6E" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#002B4F"/>
+        <g transform="rotate(72, 100, 128)">
+          <line x1="100" y1="128" x2="100" y2="52" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="40" rx="8.5" ry="13.5" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+          <circle cx="100" cy="31" r="4.5" fill="#F5C842"/>
         </g>
-        <!-- Feather at 72° -->
-        <g transform="rotate(72, 150, 380)">
-          <ellipse cx="150" cy="290" rx="8" ry="90" fill="#002B4F" stroke="#111" stroke-width="2.5"/>
-          <circle cx="150" cy="192" r="16" fill="#F5C842" stroke="#111" stroke-width="2"/>
-          <circle cx="150" cy="192" r="10" fill="#002B4F" stroke="#111" stroke-width="1.5"/>
-          <circle cx="150" cy="192" r="5" fill="#001520"/>
-        </g>
-        <!-- BODY - drawn on top of tail stems -->
-        <ellipse cx="153" cy="318" rx="42" ry="52" fill="#00C4B8" stroke="#111" stroke-width="2.5"/>
-        <!-- WING -->
-        <ellipse cx="187" cy="308" rx="22" ry="11" fill="#3DAA6E" stroke="#111" stroke-width="2" transform="rotate(-25, 187, 308)"/>
-        <!-- NECK -->
-        <path d="M 149,267 C 150,252 160,244 164,232" stroke="#111" stroke-width="12" fill="none" stroke-linecap="round"/>
-        <path d="M 149,267 C 150,252 160,244 164,232" stroke="#00C4B8" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+        <!-- BODY: narrow teardrop pointing down -->
+        <path d="M100,93 C118,100 120,138 100,175 C80,138 82,100 100,93 Z" fill="#FFF8EC" stroke="#111" stroke-width="2.5"/>
+
         <!-- HEAD -->
-        <circle cx="168" cy="224" r="22" fill="#00C4B8" stroke="#111" stroke-width="2.5"/>
+        <circle cx="100" cy="83" r="12" fill="#FFF8EC" stroke="#111" stroke-width="2.5"/>
+
         <!-- BEAK -->
-        <path d="M 188,221 L 204,217 L 188,229 Z" fill="#F5C842" stroke="#111" stroke-width="2"/>
+        <path d="M112,81 L128,77 L112,90 Z" fill="#F5C842" stroke="#111" stroke-width="1.5"/>
+
         <!-- EYE -->
-        <circle cx="178" cy="217" r="6" fill="white" stroke="#111" stroke-width="1.5"/>
-        <circle cx="179.5" cy="217" r="3" fill="#111"/>
-        <!-- CREST - 5 feather tips -->
-        <line x1="160" y1="203" x2="152" y2="184" stroke="#111" stroke-width="2.5"/>
-        <circle cx="152" cy="182" r="4.5" fill="#F5C842" stroke="#111" stroke-width="1.5"/>
-        <line x1="164" y1="202" x2="159" y2="181" stroke="#111" stroke-width="2.5"/>
-        <circle cx="159" cy="179" r="4" fill="#00C4B8" stroke="#111" stroke-width="1.5"/>
-        <line x1="169" y1="202" x2="169" y2="179" stroke="#111" stroke-width="2.5"/>
-        <circle cx="169" cy="177" r="5" fill="#F5C842" stroke="#111" stroke-width="1.5"/>
-        <line x1="174" y1="203" x2="179" y2="181" stroke="#111" stroke-width="2.5"/>
-        <circle cx="179" cy="179" r="4" fill="#3DAA6E" stroke="#111" stroke-width="1.5"/>
-        <line x1="178" y1="205" x2="186" y2="186" stroke="#111" stroke-width="2.5"/>
-        <circle cx="186" cy="184" r="4" fill="#F5C842" stroke="#111" stroke-width="1.5"/>
-        <!-- LEGS -->
-        <line x1="143" y1="368" x2="135" y2="392" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-        <line x1="162" y1="368" x2="171" y2="392" stroke="#111" stroke-width="3" stroke-linecap="round"/>
-        <line x1="135" y1="392" x2="122" y2="394" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="135" y1="392" x2="130" y2="398" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="171" y1="392" x2="184" y2="394" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="171" y1="392" x2="176" y2="398" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="106" cy="79" r="3.5" fill="#111"/>
+
+        <!-- CREST: 3 small feather tips from top of head -->
+        <g transform="rotate(-22, 100, 71)">
+          <line x1="100" y1="71" x2="100" y2="57" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="51" rx="3.5" ry="6" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+        </g>
+        <line x1="100" y1="71" x2="100" y2="55" stroke="#FFF8EC" stroke-width="1.5"/>
+        <ellipse cx="100" cy="48" rx="4" ry="7" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+        <g transform="rotate(22, 100, 71)">
+          <line x1="100" y1="71" x2="100" y2="57" stroke="#FFF8EC" stroke-width="1.5"/>
+          <ellipse cx="100" cy="51" rx="3.5" ry="6" fill="#FFF8EC" stroke="#111" stroke-width="1.5"/>
+        </g>
       </svg>
     </div>
   </div>
