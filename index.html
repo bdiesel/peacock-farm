@@ -202,6 +202,21 @@
   .chart-box h4 { font-size: 0.8rem; font-weight: 800; color: var(--black); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
   .chart-box canvas { max-height: 220px; }
 
+  /* HORIZONTAL NEIGHBORHOOD TIMELINE */
+  .nbhd-timeline { position: relative; margin: 1.5rem 0 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; }
+  .nbhd-timeline-track { display: flex; align-items: flex-start; gap: 0; min-width: 700px; position: relative; padding-top: 2.5rem; }
+  .nbhd-timeline-track::before { content: ""; position: absolute; top: 0.85rem; left: 0; right: 0; height: 3px; background: var(--black); z-index: 0; }
+  .nbhd-stop { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+  .nbhd-dot { width: 14px; height: 14px; background: var(--gold); border: 2.5px solid var(--black); position: absolute; top: -1.65rem; left: 50%; transform: translateX(-50%); z-index: 1; }
+  .nbhd-card { background: white; border: 2px solid var(--black); box-shadow: 3px 3px 0 var(--black); padding: 0.6rem 0.7rem; width: calc(100% - 8px); font-size: 0.75rem; cursor: default; }
+  .nbhd-card:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--black); }
+  .nbhd-year { font-size: 0.68rem; font-weight: 800; color: var(--black); background: var(--gold-light); border: 1.5px solid var(--black); padding: 0.1rem 0.4rem; display: inline-block; margin-bottom: 0.4rem; }
+  .nbhd-area { font-size: 0.62rem; font-weight: 800; color: white; padding: 0.1rem 0.35rem; display: inline-block; margin-left: 0.3rem; margin-bottom: 0.4rem; }
+  .nbhd-name { font-weight: 800; font-size: 0.76rem; color: var(--black); line-height: 1.2; margin-bottom: 0.3rem; }
+  .nbhd-desc { font-size: 0.68rem; color: var(--muted); line-height: 1.4; }
+  .nbhd-count { font-size: 0.68rem; font-weight: 800; color: var(--black); margin-top: 0.3rem; }
+  @media (max-width: 700px) { .nbhd-timeline-track { flex-direction: column; min-width: unset; padding-top: 0; } .nbhd-timeline-track::before { display: none; } .nbhd-stop { width: 100%; align-items: flex-start; } .nbhd-dot { display: none; } .nbhd-card { width: 100%; margin-bottom: 0.6rem; } }
+
   .data-controls { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap; align-items: center; }
   .data-controls input[type="search"] { flex: 1; min-width: 180px; padding: 0.4rem 0.75rem; border: 2px solid var(--black); font-size: 0.82rem; background: white; font-family: 'Space Grotesk', sans-serif; box-shadow: 2px 2px 0 var(--black); }
   .data-controls select { padding: 0.4rem 0.65rem; border: 2px solid var(--black); font-size: 0.82rem; background: white; font-family: 'Space Grotesk', sans-serif; box-shadow: 2px 2px 0 var(--black); }
@@ -397,14 +412,71 @@
 
     <div class="about-card">
       <h3>The Six Neighborhoods</h3>
-      <p>Compton and Pierce's design proved so popular that it spread across Lexington over two decades. The same split-level plan — with minor variations — was built in five additional neighborhoods beyond the original Peacock Farm Historic District:</p>
-      <div class="timeline">
-        <div class="tl-item"><span class="tl-year">1952–58</span><span class="tl-name">Peacock Farm (Area S)</span><span class="tl-desc">Original 42-acre development · 48 split-levels + 7 A-Series + custom homes · National Register 2012</span></div>
-        <div class="tl-item"><span class="tl-year">1957–61</span><span class="tl-name">Upper Turning Mill Road (Area AN)</span><span class="tl-desc">North Lexington · ~47 houses · Turning Mill Rd, Dewey Rd, Gould Rd, Grimes Rd</span></div>
-        <div class="tl-item"><span class="tl-year">1959</span><span class="tl-name">Rumford Road (Area AM)</span><span class="tl-desc">11 houses on one curvilinear street off Woburn St</span></div>
-        <div class="tl-item"><span class="tl-year">1960–66</span><span class="tl-name">Shaker Glen / Glen at Countryside (Area AK)</span><span class="tl-desc">26 houses · Fessenden Way, Marshall Rd, Rogers Rd, Rolfe Rd</span></div>
-        <div class="tl-item"><span class="tl-year">1962–65</span><span class="tl-name">The Grove (Area AL)</span><span class="tl-desc">~40 houses · North Lexington near Rt 95/128 · Angier Rd, Diamond Rd, N. Emerson Rd, White Ter</span></div>
-        <div class="tl-item"><span class="tl-year">1967–79</span><span class="tl-name">Pleasant Brook (Area BA)</span><span class="tl-desc">34 houses · Mason St, White Pine Ln · Recorded by LHC 2020 · Includes 2 Deck Houses</span></div>
+      <p>The same split-level plan spread across Lexington over two decades — built in six neighborhoods from 1952 to 1979:</p>
+      <div class="nbhd-timeline">
+        <div class="nbhd-timeline-track">
+
+          <div class="nbhd-stop">
+            <div class="nbhd-dot"></div>
+            <div class="nbhd-card">
+              <div><span class="nbhd-year">1952–58</span><span class="nbhd-area" style="background:var(--teal)">Area S</span></div>
+              <div class="nbhd-name">Peacock Farm</div>
+              <div class="nbhd-desc">Original 42-acre development · National Register 2012</div>
+              <div class="nbhd-count">~76 homes</div>
+            </div>
+          </div>
+
+          <div class="nbhd-stop">
+            <div class="nbhd-dot"></div>
+            <div class="nbhd-card">
+              <div><span class="nbhd-year">1957–61</span><span class="nbhd-area" style="background:var(--navy)">Area AN</span></div>
+              <div class="nbhd-name">Upper Turning Mill Rd</div>
+              <div class="nbhd-desc">Turning Mill, Dewey, Gould, Grimes Roads</div>
+              <div class="nbhd-count">~47 homes</div>
+            </div>
+          </div>
+
+          <div class="nbhd-stop">
+            <div class="nbhd-dot"></div>
+            <div class="nbhd-card">
+              <div><span class="nbhd-year">1959</span><span class="nbhd-area" style="background:var(--coral)">Area AM</span></div>
+              <div class="nbhd-name">Rumford Road</div>
+              <div class="nbhd-desc">One curvilinear street off Woburn St</div>
+              <div class="nbhd-count">11 homes</div>
+            </div>
+          </div>
+
+          <div class="nbhd-stop">
+            <div class="nbhd-dot"></div>
+            <div class="nbhd-card">
+              <div><span class="nbhd-year">1960–66</span><span class="nbhd-area" style="background:var(--green)">Area AK</span></div>
+              <div class="nbhd-name">Shaker Glen</div>
+              <div class="nbhd-desc">Fessenden Way, Marshall, Rogers, Rolfe Roads</div>
+              <div class="nbhd-count">26 homes</div>
+            </div>
+          </div>
+
+          <div class="nbhd-stop">
+            <div class="nbhd-dot"></div>
+            <div class="nbhd-card">
+              <div><span class="nbhd-year">1962–65</span><span class="nbhd-area" style="background:#7B4F9E">Area AL</span></div>
+              <div class="nbhd-name">The Grove</div>
+              <div class="nbhd-desc">Angier, Diamond, N. Emerson, White Terrace</div>
+              <div class="nbhd-count">~40 homes</div>
+            </div>
+          </div>
+
+          <div class="nbhd-stop">
+            <div class="nbhd-dot"></div>
+            <div class="nbhd-card">
+              <div><span class="nbhd-year">1967–79</span><span class="nbhd-area" style="background:#8B4513">Area BA</span></div>
+              <div class="nbhd-name">Pleasant Brook</div>
+              <div class="nbhd-desc">Mason St, White Pine Ln · Includes 2 Deck Houses</div>
+              <div class="nbhd-count">34 homes</div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
